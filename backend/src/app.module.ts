@@ -1,10 +1,12 @@
 import { Module } from '@nestjs/common';
-import { AppController } from './app.controller';
-import { AppService } from './app.service';
 import { TypeOrmModule } from '@nestjs/typeorm';
+import { ProvidersModule } from './providers.module';
+import { ControllersModule } from './gateway/controllers/controllers.module';
 
 @Module({
   imports: [
+    ProvidersModule,
+    ControllersModule,
     TypeOrmModule.forRoot({
       type: 'postgres',
       host: 'localhost',
@@ -16,7 +18,5 @@ import { TypeOrmModule } from '@nestjs/typeorm';
       synchronize: true, // TODO: To be removed in PROD
     }),
   ],
-  controllers: [AppController],
-  providers: [AppService],
 })
 export class AppModule {}
