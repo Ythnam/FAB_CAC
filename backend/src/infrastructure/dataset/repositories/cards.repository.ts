@@ -9,9 +9,14 @@ export class CardsRepository implements ICardsRepository {
 
   findAll(): Promise<ICard[]> {
     // TODO: to define
-    const a = { id: 12 } as Card;
-    const b = { id: 24 } as Card;
+    const a = new Card();
+    a.id = 12;
+    const b = new Card();
+    b.id = 24;
     const cards = [a, b];
-    return new Promise(() => cards);
+    const result = new Promise<ICard[]>((resolve) => {
+      resolve(cards);
+    });
+    return result;
   }
 }
