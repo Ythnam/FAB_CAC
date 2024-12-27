@@ -1,21 +1,22 @@
-import { Card } from '@/domain/entities/cards/card';
+import { Injectable } from '@nestjs/common';
+import { cards } from '@flesh-and-blood/cards';
+import { Card as FABCard } from '@flesh-and-blood/types';
 import { ICard } from '@/domain/entities/cards/card.interface';
 import { ICardsRepository } from '@/domain/repositories/cards-repository.interface';
-import { Injectable } from '@nestjs/common';
+import { CardEntityMapper } from '../mapper/card-entity-mapper';
 
 @Injectable()
 export class CardsRepository implements ICardsRepository {
   constructor() {}
 
   findAll(): Promise<ICard[]> {
-    // TODO: to define
-    const a = new Card();
-    a.id = 12;
-    const b = new Card();
-    b.id = 24;
-    const cards = [a, b];
+    // TODO: Remove the slice and optimise the call
+    const test = cards.slice(0, 100);
+    const cardsMapped = test.flatMap((card: FABCard) => {
+      return CardEntityMapper.toCardEntity(card);
+    });
     const result = new Promise<ICard[]>((resolve) => {
-      resolve(cards);
+      resolve(cardsMapped);
     });
     return result;
   }

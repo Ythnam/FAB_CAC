@@ -1,4 +1,13 @@
 export interface ICard {
-  id: number;
-  // TODO: Define it
+  cardIdentifier: string;
+  classes: string[];
+  name: string;
+  rarity: string;
+  artists: string[];
+  edition: string;
+  foiling: string;
+  setIdentifier: string;
+  image: string;
+  set: string;
+  treatment: string;
 }

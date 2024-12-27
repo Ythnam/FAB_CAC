@@ -1,7 +1,6 @@
-import { BaseEntity } from '../base.entity';
-import { ICard } from './card.interface';
+import { ICard } from '@/domain/entities/cards/card.interface';
 
-export class Card extends BaseEntity implements ICard {
+export class CardEntity implements ICard {
   cardIdentifier: string;
   classes: string[];
   name: string;
