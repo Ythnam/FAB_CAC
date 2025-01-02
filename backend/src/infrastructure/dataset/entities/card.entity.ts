@@ -1,15 +1,15 @@
+import { ICardPrinting } from '@/domain/entities/card-printings/card-printing.interface';
 import { ICard } from '@/domain/entities/cards/card.interface';
 
 export class CardEntity implements ICard {
+  artists: string[] = [];
   cardIdentifier: string;
-  classes: string[];
+  classes: string[] = [];
+  defaultImage?: string;
   name: string;
+  printings: ICardPrinting[] = [];
   rarity: string;
-  artists: string[];
-  edition: string;
-  foiling: string;
-  setIdentifier: string;
-  image: string;
-  set: string;
-  treatment: string;
+  setIdentifiers: string[] = [];
+  sets: string[] = [];
+  typeText: string;
 }

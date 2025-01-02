@@ -12,7 +12,7 @@ export class CardsRepository implements ICardsRepository {
   findAll(): Promise<ICard[]> {
     // TODO: Remove the slice and optimise the call
     const test = cards.slice(0, 100);
-    const cardsMapped = test.flatMap((card: FABCard) => {
+    const cardsMapped = test.map((card: FABCard) => {
       return CardEntityMapper.toCardEntity(card);
     });
     const result = new Promise<ICard[]>((resolve) => {
