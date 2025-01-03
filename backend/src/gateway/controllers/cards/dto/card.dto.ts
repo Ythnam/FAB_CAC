@@ -4,7 +4,7 @@ export class CardDto {
   readonly artists: string[];
   readonly cardIdentifier: string;
   readonly classes: string[];
-  readonly defaultImage: string;
+  readonly defaultImage?: string;
   readonly name: string;
   readonly printings: CardPrintingDto[];
   readonly rarity: string;

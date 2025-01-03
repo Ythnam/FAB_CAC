@@ -4,10 +4,10 @@ export class CardPrintingEntity implements ICardPrinting {
   artists: string[];
   edition?: string;
   foiling?: string;
-  setIdentifier: string;
+  identifier: string;
   image?: string;
   oppositeImage?: string;
   print: string;
   set: string;
-  treatment: string;
+  treatment?: string;
 }

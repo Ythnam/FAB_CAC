@@ -22,7 +22,7 @@ export class CardEntityMapper {
       cardPrintingMapped.artists = printing.artists;
       cardPrintingMapped.edition = printing.edition?.toString();
       cardPrintingMapped.foiling = printing.foiling?.toString();
-      cardPrintingMapped.setIdentifier = printing.identifier;
+      cardPrintingMapped.identifier = printing.identifier;
       cardPrintingMapped.image = printing.image;
       cardPrintingMapped.oppositeImage = printing.oppositeImage;
       cardPrintingMapped.print = printing.print;
