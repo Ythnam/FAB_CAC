@@ -2,6 +2,7 @@ import { Injectable } from '@nestjs/common';
 
 import { cards } from '@flesh-and-blood/cards';
 import { Card as FABCard, Release } from '@flesh-and-blood/types';
+import { first, isNil } from 'lodash';
 
 import { ICard } from '@/domain/entities/cards/card.interface';
 import { ICardsRepository } from '@/domain/repositories/cards-repository.interface';
@@ -19,15 +20,38 @@ export class CardsRepository implements ICardsRepository {
     return result;
   }
 
-  findAllCardsFileredBySet(set: string): Promise<Array<ICard>> {
-    const filteredCards = this.filterCardsBySet(set);
+  findAllCardsFilteredBySet(set: string): Promise<Array<ICard>> {
+    const releaseSet = set as Release;
+    const filteredCards = this.filterCardsDataBySet(releaseSet);
     const cardEntities = this.convertToCardEntity(filteredCards);
     const result = this.convertToPromise<ICard[]>(cardEntities);
     return result;
   }
 
-  private filterCardsBySet(set: string): FABCard[] {
-    return cards.filter((card: FABCard) => card.sets.includes(set as Release));
+  private filterCardsDataBySet(set: Release): FABCard[] {
+    const filteredCards = this.filterCardsBySet(set);
+    const cardsDataFiltered = this.filterCardPrintsBySet(filteredCards, set);
+    return cardsDataFiltered;
+  }
+
+  private filterCardsBySet(set: Release): FABCard[] {
+    return cards.filter((card: FABCard) => card.sets.includes(set));
+  }
+
+  private filterCardPrintsBySet(fabCards: FABCard[], set: Release): FABCard[] {
+    const mappedFabCards = fabCards.map((fabCard: FABCard) => this.filterCardPrintBySet(fabCard, set));
+    return mappedFabCards;
+  }
+
+  private filterCardPrintBySet(fabCard: FABCard, set: Release): FABCard {
+    fabCard.sets = [set];
+    fabCard.printings = fabCard.printings.filter((print) => print.set === set);
+    const defaultElement = first(fabCard.printings);
+    if (!isNil(defaultElement)) {
+      fabCard.defaultImage = defaultElement?.image ?? fabCard.defaultImage;
+      fabCard.setIdentifiers = [defaultElement.identifier];
+    }
+    return fabCard;
   }
 
   private convertToCardEntity(card: FABCard[]): Array<ICard> {

@@ -84,7 +84,7 @@ describe('GetAllCardsFilteredBySetUseCase', () => {
   beforeEach(() => {
     cardsRepository = {
       findAll: jest.fn(),
-      findAllCardsFileredBySet: jest.fn(),
+      findAllCardsFilteredBySet: jest.fn(),
     };
 
     getAllCardsFilteredBySetUseCase = new GetAllCardsFilteredBySetUseCase(cardsRepository);
@@ -99,7 +99,7 @@ describe('GetAllCardsFilteredBySetUseCase', () => {
       // Arrange
       const cardsData: ICard[] = [card1, card2];
       const setSearch = 'Part the Mistveil';
-      jest.spyOn(cardsRepository, 'findAllCardsFileredBySet').mockResolvedValue(cardsData);
+      jest.spyOn(cardsRepository, 'findAllCardsFilteredBySet').mockResolvedValue(cardsData);
 
       // Act
       const result = await getAllCardsFilteredBySetUseCase.execute(setSearch);
@@ -110,12 +110,12 @@ describe('GetAllCardsFilteredBySetUseCase', () => {
         expect(card).toBeInstanceOf(Card);
         expect(card).toMatchObject(cardsData[index]);
       });
-      expect(cardsRepository.findAllCardsFileredBySet).toHaveBeenCalledTimes(1);
+      expect(cardsRepository.findAllCardsFilteredBySet).toHaveBeenCalledTimes(1);
     });
 
     it('should return an empty array if no cards are found', async () => {
       // Arrange
-      jest.spyOn(cardsRepository, 'findAllCardsFileredBySet').mockResolvedValue([]);
+      jest.spyOn(cardsRepository, 'findAllCardsFilteredBySet').mockResolvedValue([]);
       const set = 'aaefgvzvz';
 
       // Act
@@ -123,8 +123,8 @@ describe('GetAllCardsFilteredBySetUseCase', () => {
 
       // Assert
       expect(result).toEqual([]);
-      expect(cardsRepository.findAllCardsFileredBySet).toHaveBeenCalledTimes(1);
-      expect(cardsRepository.findAllCardsFileredBySet).toHaveBeenCalledWith(set);
+      expect(cardsRepository.findAllCardsFilteredBySet).toHaveBeenCalledTimes(1);
+      expect(cardsRepository.findAllCardsFilteredBySet).toHaveBeenCalledWith(set);
     });
   });
 });

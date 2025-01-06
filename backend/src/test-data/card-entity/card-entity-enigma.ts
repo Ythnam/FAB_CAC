@@ -19,7 +19,7 @@ const enigmaPrintCf: CardPrintingEntity = {
   set: Release.PartTheMistveil.toString(),
 };
 
-const enighmaPrintMarvel: CardPrintingEntity = {
+const enigmaPrintMarvel: CardPrintingEntity = {
   artists: ['Asur Misoa'],
   foiling: Foiling.C.toString(),
   identifier: 'MST026',
@@ -38,10 +38,10 @@ const enigmaPrintRf: CardPrintingEntity = {
   set: Release.EnigmaBlitzDeck.toString(),
 };
 
-export const entityCardEnigma: CardEntity = {
+const entityCardEnigma: CardEntity = {
   artists: ['Asur Misoa'],
   classes: [Class.Illusionist.toString()],
-  printings: [enigmaPrint, enigmaPrintCf, enighmaPrintMarvel, enigmaPrintRf],
+  printings: [enigmaPrint, enigmaPrintCf, enigmaPrintMarvel, enigmaPrintRf],
   setIdentifiers: ['ENG001', 'MST026'],
   sets: [Release.EnigmaBlitzDeck.toString(), Release.PartTheMistveil.toString()],
   cardIdentifier: 'enigma',
@@ -50,3 +50,5 @@ export const entityCardEnigma: CardEntity = {
   rarity: Rarity.Token,
   typeText: 'Mystic Illusionist Hero - Young',
 };
+
+export { entityCardEnigma, enigmaPrint, enigmaPrintCf, enigmaPrintMarvel, enigmaPrintRf };

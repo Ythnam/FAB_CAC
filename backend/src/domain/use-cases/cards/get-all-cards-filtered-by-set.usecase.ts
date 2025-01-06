@@ -14,7 +14,7 @@ export class GetAllCardsFilteredBySetUseCase implements BaseUseCase {
   ) {}
 
   async execute(set: string): Promise<ICard[]> {
-    const cardsData = await this.cardsRepository.findAllCardsFileredBySet(set);
+    const cardsData = await this.cardsRepository.findAllCardsFilteredBySet(set);
     return cardsData.map((card) => new Card().fromDao(card));
   }
 }

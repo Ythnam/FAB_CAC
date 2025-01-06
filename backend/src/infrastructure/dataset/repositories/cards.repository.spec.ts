@@ -1,12 +1,12 @@
 import { cards } from '@flesh-and-blood/cards';
 import { Release } from '@flesh-and-blood/types';
-import { isEmpty } from 'lodash';
+import { cloneDeep, isEmpty } from 'lodash';
 
 import { CardsRepository } from './cards.repository';
 import { CardEntity } from '../entities/card.entity';
 import { fabCardEnigma } from '@/test-data/fab-card/fab-card-enigma';
 import { fabCardPrism } from '@/test-data/fab-card/fab-card-prism-advent-of-thrones';
-import { entityCardEnigma } from '@/test-data/card-entity/card-entity-enigma';
+import { enigmaPrint, enigmaPrintCf, enigmaPrintMarvel, entityCardEnigma } from '@/test-data/card-entity/card-entity-enigma';
 
 jest.mock('@flesh-and-blood/cards');
 
@@ -37,7 +37,7 @@ describe('CardsRepository', () => {
       const set = Release.Rosetta.toString();
 
       // Act
-      const result = await cardsRepository.findAllCardsFileredBySet(set);
+      const result = await cardsRepository.findAllCardsFilteredBySet(set);
 
       // Assert
       expect(isEmpty(result)).toBeTruthy();
@@ -48,13 +48,18 @@ describe('CardsRepository', () => {
       const set = Release.PartTheMistveil.toString();
 
       // Act
-      const result = await cardsRepository.findAllCardsFileredBySet(set);
+      const result = await cardsRepository.findAllCardsFilteredBySet(set);
 
       // Assert
+      const expectedResult = cloneDeep(entityCardEnigma);
+      /* To match only PartTheMistveil, remove EnigmaBlitzDeckd dependencies */
+      expectedResult.printings = [enigmaPrint, enigmaPrintCf, enigmaPrintMarvel];
+      expectedResult.setIdentifiers = ['MST026'];
+      expectedResult.sets = [Release.PartTheMistveil.toString()];
       expect(result).toHaveLength(1);
       result.forEach((card) => {
         expect(card).toBeInstanceOf(CardEntity);
-        expect(card).toMatchObject(entityCardEnigma);
+        expect(card).toMatchObject(expectedResult);
       });
     });
   });
