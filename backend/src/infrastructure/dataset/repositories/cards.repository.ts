@@ -28,6 +28,20 @@ export class CardsRepository implements ICardsRepository {
     return result;
   }
 
+  findAllCardsFilteredByName(name: string): Promise<Array<ICard>> {
+    console.log('findAllCardsFilteredByName');
+    const filteredCards = this.filterCardsByName(name);
+    const cardEntities = this.convertToCardEntity(filteredCards);
+    const result = this.convertToPromise<ICard[]>(cardEntities);
+    return result;
+  }
+
+  private filterCardsByName(name: string): FABCard[] {
+    const searchMatchingNamesCaseInsensitiveRegexp = new RegExp(`${name}`, 'i');
+    const cardsMatched = cards.filter((card: FABCard) => searchMatchingNamesCaseInsensitiveRegexp.test(card.name));
+    return cardsMatched;
+  }
+
   private filterCardsDataBySet(set: Release): FABCard[] {
     const filteredCards = this.filterCardsBySet(set);
     const cardsDataFiltered = this.filterCardPrintsBySet(filteredCards, set);

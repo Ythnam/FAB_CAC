@@ -1,11 +1,11 @@
 import { ICardsRepository } from '@/domain/repositories/cards-repository.interface';
-import { GetAllCardsFilteredBySetUseCase } from './get-all-cards-filtered-by-set.usecase';
 import { ICard } from '@/domain/entities/cards/card.interface';
 import { Card } from '@/domain/entities/cards/card';
 import { cardEntityEnigma } from '@/test-data/card-entity/card-entity-enigma';
+import { GetAllCardsFilteredByNameUseCase } from './get-all-cards-filtered-by-name.usecase';
 
-describe('GetAllCardsFilteredBySetUseCase', () => {
-  let getAllCardsFilteredBySetUseCase: GetAllCardsFilteredBySetUseCase;
+describe('GetAllCardsFilteredByNameUseCase', () => {
+  let getAllCardsFilteredByNameUseCase: GetAllCardsFilteredByNameUseCase;
   let cardsRepository: ICardsRepository;
 
   beforeEach(() => {
@@ -15,22 +15,22 @@ describe('GetAllCardsFilteredBySetUseCase', () => {
       findAllCardsFilteredByName: jest.fn(),
     };
 
-    getAllCardsFilteredBySetUseCase = new GetAllCardsFilteredBySetUseCase(cardsRepository);
+    getAllCardsFilteredByNameUseCase = new GetAllCardsFilteredByNameUseCase(cardsRepository);
   });
 
   it('should be defined', () => {
-    expect(getAllCardsFilteredBySetUseCase).toBeDefined();
+    expect(getAllCardsFilteredByNameUseCase).toBeDefined();
   });
 
   describe('execute', () => {
     it('should return an array of cards instances', async () => {
       // Arrange
       const cardsData: ICard[] = [cardEntityEnigma];
-      const setSearch = 'Part the Mistveil';
-      jest.spyOn(cardsRepository, 'findAllCardsFilteredBySet').mockResolvedValue(cardsData);
+      const name = 'Enigma';
+      jest.spyOn(cardsRepository, 'findAllCardsFilteredByName').mockResolvedValue(cardsData);
 
       // Act
-      const result = await getAllCardsFilteredBySetUseCase.execute(setSearch);
+      const result = await getAllCardsFilteredByNameUseCase.execute(name);
 
       // Assert
       expect(result).toHaveLength(cardsData.length);
@@ -38,21 +38,21 @@ describe('GetAllCardsFilteredBySetUseCase', () => {
         expect(card).toBeInstanceOf(Card);
         expect(card).toMatchObject(cardsData[index]);
       });
-      expect(cardsRepository.findAllCardsFilteredBySet).toHaveBeenCalledTimes(1);
+      expect(cardsRepository.findAllCardsFilteredByName).toHaveBeenCalledTimes(1);
     });
 
     it('should return an empty array if no cards are found', async () => {
       // Arrange
-      jest.spyOn(cardsRepository, 'findAllCardsFilteredBySet').mockResolvedValue([]);
-      const set = 'aaefgvzvz';
+      jest.spyOn(cardsRepository, 'findAllCardsFilteredByName').mockResolvedValue([]);
+      const name = 'aaefgvzvz';
 
       // Act
-      const result = await getAllCardsFilteredBySetUseCase.execute(set);
+      const result = await getAllCardsFilteredByNameUseCase.execute(name);
 
       // Assert
       expect(result).toEqual([]);
-      expect(cardsRepository.findAllCardsFilteredBySet).toHaveBeenCalledTimes(1);
-      expect(cardsRepository.findAllCardsFilteredBySet).toHaveBeenCalledWith(set);
+      expect(cardsRepository.findAllCardsFilteredByName).toHaveBeenCalledTimes(1);
+      expect(cardsRepository.findAllCardsFilteredByName).toHaveBeenCalledWith(name);
     });
   });
 });
