@@ -1,6 +1,6 @@
 import { Class, Card as FABCard, Printing as FABPrinting, Foiling, Rarity, Release, Treatment } from '@flesh-and-blood/types';
 
-const enigmaPrint: FABPrinting = {
+const fabCardPrintEnigmaNoFoil: FABPrinting = {
   artists: ['Asur Misoa'],
   identifier: 'MST026',
   image: 'MST026',
@@ -8,7 +8,7 @@ const enigmaPrint: FABPrinting = {
   set: Release.PartTheMistveil,
 };
 
-const enigmaPrintCf: FABPrinting = {
+const fabCardPrintEnigmaColdFoil: FABPrinting = {
   artists: ['Asur Misoa'],
   foiling: Foiling.C,
   identifier: 'MST026',
@@ -17,7 +17,7 @@ const enigmaPrintCf: FABPrinting = {
   set: Release.PartTheMistveil,
 };
 
-const enighmaPrintMarvel: FABPrinting = {
+const fabCardPrintEnigmaMarvel: FABPrinting = {
   artists: ['Asur Misoa'],
   foiling: Foiling.C,
   identifier: 'MST026',
@@ -27,7 +27,7 @@ const enighmaPrintMarvel: FABPrinting = {
   treatment: Treatment.FA,
 };
 
-const enigmaPrintRf: FABPrinting = {
+const fabCardPrintEnigmaRainbowFoil: FABPrinting = {
   artists: ['Asur Misoa'],
   foiling: Foiling.R,
   identifier: 'ENG001',
@@ -36,10 +36,10 @@ const enigmaPrintRf: FABPrinting = {
   set: Release.EnigmaBlitzDeck,
 };
 
-export const fabCardEnigma: FABCard = {
+const fabCardEnigma: FABCard = {
   artists: ['Asur Misoa'],
   classes: [Class.Illusionist],
-  printings: [enigmaPrint, enigmaPrintCf, enighmaPrintMarvel, enigmaPrintRf],
+  printings: [fabCardPrintEnigmaNoFoil, fabCardPrintEnigmaColdFoil, fabCardPrintEnigmaMarvel, fabCardPrintEnigmaRainbowFoil],
   setIdentifiers: ['ENG001', 'MST026'],
   sets: [Release.EnigmaBlitzDeck, Release.PartTheMistveil],
   cardIdentifier: 'enigma',
@@ -53,3 +53,5 @@ export const fabCardEnigma: FABCard = {
   subtypes: [],
   types: [],
 };
+
+export { fabCardEnigma, fabCardPrintEnigmaNoFoil, fabCardPrintEnigmaColdFoil, fabCardPrintEnigmaMarvel, fabCardPrintEnigmaRainbowFoil };

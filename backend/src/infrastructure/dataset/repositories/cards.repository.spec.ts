@@ -6,7 +6,12 @@ import { CardsRepository } from './cards.repository';
 import { CardEntity } from '../entities/card.entity';
 import { fabCardEnigma } from '@/test-data/fab-card/fab-card-enigma';
 import { fabCardPrism } from '@/test-data/fab-card/fab-card-prism-advent-of-thrones';
-import { enigmaPrint, enigmaPrintCf, enigmaPrintMarvel, entityCardEnigma } from '@/test-data/card-entity/card-entity-enigma';
+import {
+  cardEntityEnigma,
+  cardPrintingEntityEnigmaColdFoil,
+  cardPrintingEntityEnigmaMarvel,
+  cardPrintingEntityEnigmaNoFoil,
+} from '@/test-data/card-entity/card-entity-enigma';
 
 jest.mock('@flesh-and-blood/cards');
 
@@ -51,9 +56,9 @@ describe('CardsRepository', () => {
       const result = await cardsRepository.findAllCardsFilteredBySet(set);
 
       // Assert
-      const expectedResult = cloneDeep(entityCardEnigma);
+      const expectedResult = cloneDeep(cardEntityEnigma);
       /* To match only PartTheMistveil, remove EnigmaBlitzDeckd dependencies */
-      expectedResult.printings = [enigmaPrint, enigmaPrintCf, enigmaPrintMarvel];
+      expectedResult.printings = [cardPrintingEntityEnigmaNoFoil, cardPrintingEntityEnigmaColdFoil, cardPrintingEntityEnigmaMarvel];
       expectedResult.setIdentifiers = ['MST026'];
       expectedResult.sets = [Release.PartTheMistveil.toString()];
       expect(result).toHaveLength(1);

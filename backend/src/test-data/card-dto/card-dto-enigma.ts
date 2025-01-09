@@ -1,8 +1,8 @@
-import { CardPrintingEntity } from '@/infrastructure/dataset/entities/card-printing.entity';
-import { CardEntity } from '@/infrastructure/dataset/entities/card.entity';
 import { Class, Foiling, Rarity, Release, Treatment } from '@flesh-and-blood/types';
+import { CardDto } from '@/gateway/controllers/cards/dto/card.dto';
+import { CardPrintingDto } from '@/gateway/controllers/cards/dto/card-printing.dto';
 
-const cardPrintingEntityEnigmaNoFoil: CardPrintingEntity = {
+const cardPrintingDtoEnigmaNoFoil: CardPrintingDto = {
   artists: ['Asur Misoa'],
   identifier: 'MST026',
   image: 'MST026',
@@ -10,7 +10,7 @@ const cardPrintingEntityEnigmaNoFoil: CardPrintingEntity = {
   set: Release.PartTheMistveil.toString(),
 };
 
-const cardPrintingEntityEnigmaColdFoil: CardPrintingEntity = {
+const cardPrintingDtoEnigmaColdFoil: CardPrintingDto = {
   artists: ['Asur Misoa'],
   foiling: Foiling.C.toString(),
   identifier: 'MST026',
@@ -19,7 +19,7 @@ const cardPrintingEntityEnigmaColdFoil: CardPrintingEntity = {
   set: Release.PartTheMistveil.toString(),
 };
 
-const cardPrintingEntityEnigmaMarvel: CardPrintingEntity = {
+const cardPrintingDtoEnigmaMarvel: CardPrintingDto = {
   artists: ['Asur Misoa'],
   foiling: Foiling.C.toString(),
   identifier: 'MST026',
@@ -29,7 +29,7 @@ const cardPrintingEntityEnigmaMarvel: CardPrintingEntity = {
   treatment: Treatment.FA.toString(),
 };
 
-const cardPrintingEntityEnigmaRainbowFoil: CardPrintingEntity = {
+const cardPrintingDtoEnigmaRainbowFoil: CardPrintingDto = {
   artists: ['Asur Misoa'],
   foiling: Foiling.R.toString(),
   identifier: 'ENG001',
@@ -38,10 +38,10 @@ const cardPrintingEntityEnigmaRainbowFoil: CardPrintingEntity = {
   set: Release.EnigmaBlitzDeck.toString(),
 };
 
-const cardEntityEnigma: CardEntity = {
+const cardDtoEnigma: CardDto = {
   artists: ['Asur Misoa'],
   classes: [Class.Illusionist.toString()],
-  printings: [cardPrintingEntityEnigmaNoFoil, cardPrintingEntityEnigmaColdFoil, cardPrintingEntityEnigmaMarvel, cardPrintingEntityEnigmaRainbowFoil],
+  printings: [cardPrintingDtoEnigmaNoFoil, cardPrintingDtoEnigmaColdFoil, cardPrintingDtoEnigmaMarvel, cardPrintingDtoEnigmaRainbowFoil],
   setIdentifiers: ['ENG001', 'MST026'],
   sets: [Release.EnigmaBlitzDeck.toString(), Release.PartTheMistveil.toString()],
   cardIdentifier: 'enigma',
@@ -51,10 +51,4 @@ const cardEntityEnigma: CardEntity = {
   typeText: 'Mystic Illusionist Hero - Young',
 };
 
-export {
-  cardEntityEnigma,
-  cardPrintingEntityEnigmaNoFoil,
-  cardPrintingEntityEnigmaColdFoil,
-  cardPrintingEntityEnigmaMarvel,
-  cardPrintingEntityEnigmaRainbowFoil,
-};
+export { cardDtoEnigma, cardPrintingDtoEnigmaNoFoil, cardPrintingDtoEnigmaColdFoil, cardPrintingDtoEnigmaMarvel, cardPrintingDtoEnigmaRainbowFoil };
