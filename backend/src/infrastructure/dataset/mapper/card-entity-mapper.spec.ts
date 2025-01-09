@@ -1,6 +1,6 @@
 import { fabCardEnigma } from '@/test-data/fab-card/fab-card-enigma';
 import { CardEntityMapper } from './card-entity-mapper';
-import { entityCardEnigma } from '@/test-data/card-entity/card-entity-enigma';
+import { cardEntityEnigma } from '@/test-data/card-entity/card-entity-enigma';
 
 describe('CardEntityMapper', () => {
   it('toCardEntity', () => {
@@ -8,6 +8,6 @@ describe('CardEntityMapper', () => {
     const result = CardEntityMapper.toCardEntity(fabCardEnigma);
 
     // Arrange
-    expect(result).toMatchObject(entityCardEnigma);
+    expect(result).toMatchObject(cardEntityEnigma);
   });
 });

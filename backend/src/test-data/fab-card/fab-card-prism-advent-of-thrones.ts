@@ -1,6 +1,6 @@
 import { Class, Card as FABCard, Printing as FABPrinting, Foiling, Rarity, Release } from '@flesh-and-blood/types';
 
-const prismPrint: FABPrinting = {
+const fabCardPrintPrismNoFoil: FABPrinting = {
   artists: ['Livia Prima'],
   identifier: 'DTD002',
   image: 'DTD002',
@@ -8,7 +8,7 @@ const prismPrint: FABPrinting = {
   set: Release.DuskTillDawn,
 };
 
-const prismPrintCf: FABPrinting = {
+const fabCardPrintPrismColdFoil: FABPrinting = {
   artists: ['Livia Prima'],
   foiling: Foiling.C,
   identifier: 'HER084',
@@ -17,10 +17,10 @@ const prismPrintCf: FABPrinting = {
   set: Release.Promos,
 };
 
-export const fabCardPrism: FABCard = {
+const fabCardPrism: FABCard = {
   artists: ['Livia Prima'],
   classes: [Class.Illusionist],
-  printings: [prismPrint, prismPrintCf],
+  printings: [fabCardPrintPrismNoFoil, fabCardPrintPrismColdFoil],
   setIdentifiers: ['DTD002', 'HER084'],
   sets: [Release.DuskTillDawn, Release.Promos],
   cardIdentifier: 'prism-advent-of-thrones',
@@ -34,3 +34,5 @@ export const fabCardPrism: FABCard = {
   subtypes: [],
   types: [],
 };
+
+export { fabCardPrism, fabCardPrintPrismNoFoil, fabCardPrintPrismColdFoil };

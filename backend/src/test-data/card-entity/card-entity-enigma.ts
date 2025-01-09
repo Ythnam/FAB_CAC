@@ -2,7 +2,7 @@ import { CardPrintingEntity } from '@/infrastructure/dataset/entities/card-print
 import { CardEntity } from '@/infrastructure/dataset/entities/card.entity';
 import { Class, Foiling, Rarity, Release, Treatment } from '@flesh-and-blood/types';
 
-const enigmaPrint: CardPrintingEntity = {
+const cardPrintingEntityEnigmaNoFoil: CardPrintingEntity = {
   artists: ['Asur Misoa'],
   identifier: 'MST026',
   image: 'MST026',
@@ -10,7 +10,7 @@ const enigmaPrint: CardPrintingEntity = {
   set: Release.PartTheMistveil.toString(),
 };
 
-const enigmaPrintCf: CardPrintingEntity = {
+const cardPrintingEntityEnigmaColdFoil: CardPrintingEntity = {
   artists: ['Asur Misoa'],
   foiling: Foiling.C.toString(),
   identifier: 'MST026',
@@ -19,7 +19,7 @@ const enigmaPrintCf: CardPrintingEntity = {
   set: Release.PartTheMistveil.toString(),
 };
 
-const enigmaPrintMarvel: CardPrintingEntity = {
+const cardPrintingEntityEnigmaMarvel: CardPrintingEntity = {
   artists: ['Asur Misoa'],
   foiling: Foiling.C.toString(),
   identifier: 'MST026',
@@ -29,7 +29,7 @@ const enigmaPrintMarvel: CardPrintingEntity = {
   treatment: Treatment.FA.toString(),
 };
 
-const enigmaPrintRf: CardPrintingEntity = {
+const cardPrintingEntityEnigmaRainbowFoil: CardPrintingEntity = {
   artists: ['Asur Misoa'],
   foiling: Foiling.R.toString(),
   identifier: 'ENG001',
@@ -38,10 +38,10 @@ const enigmaPrintRf: CardPrintingEntity = {
   set: Release.EnigmaBlitzDeck.toString(),
 };
 
-const entityCardEnigma: CardEntity = {
+const cardEntityEnigma: CardEntity = {
   artists: ['Asur Misoa'],
   classes: [Class.Illusionist.toString()],
-  printings: [enigmaPrint, enigmaPrintCf, enigmaPrintMarvel, enigmaPrintRf],
+  printings: [cardPrintingEntityEnigmaNoFoil, cardPrintingEntityEnigmaColdFoil, cardPrintingEntityEnigmaMarvel, cardPrintingEntityEnigmaRainbowFoil],
   setIdentifiers: ['ENG001', 'MST026'],
   sets: [Release.EnigmaBlitzDeck.toString(), Release.PartTheMistveil.toString()],
   cardIdentifier: 'enigma',
@@ -51,4 +51,10 @@ const entityCardEnigma: CardEntity = {
   typeText: 'Mystic Illusionist Hero - Young',
 };
 
-export { entityCardEnigma, enigmaPrint, enigmaPrintCf, enigmaPrintMarvel, enigmaPrintRf };
+export {
+  cardEntityEnigma,
+  cardPrintingEntityEnigmaNoFoil,
+  cardPrintingEntityEnigmaColdFoil,
+  cardPrintingEntityEnigmaMarvel,
+  cardPrintingEntityEnigmaRainbowFoil,
+};

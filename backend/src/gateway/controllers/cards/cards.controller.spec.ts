@@ -3,6 +3,8 @@ import { CardsController } from './cards.controller';
 import { GetAllCardsFilteredBySetUseCase } from '@/domain/use-cases/cards/get-all-cards-filtered-by-set.usecase';
 import { CardDto } from './dto/card.dto';
 import { GetAllCardsUseCase } from '@/domain/use-cases/cards/get-all-cards.usecase';
+import { cardEntityPrism } from '@/test-data/card-entity/card-entity-prism-advent-of-thrones';
+import { cardEntityEnigma } from '@/test-data/card-entity/card-entity-enigma';
 
 describe('CardsController', () => {
   let cardsController: CardsController;
@@ -38,20 +40,7 @@ describe('CardsController', () => {
   describe('findAllCardsFilteredBySet', () => {
     it('Should return an aray of cards', async () => {
       // Arrange
-      const cards = [
-        {
-          artists: [],
-          cardIdentifier: '',
-          classes: [],
-          defaultImage: '',
-          name: '',
-          printings: [],
-          rarity: '',
-          setIdentifiers: [],
-          sets: ['Enigma Blitz Deck', 'Part the Mistveil', 'Promos'],
-          typeText: '',
-        },
-      ];
+      const cards = [cardEntityEnigma, cardEntityPrism];
       jest.spyOn(getAllCardsFilteredBySetUseCase, 'execute').mockResolvedValue(cards);
 
       // Act
