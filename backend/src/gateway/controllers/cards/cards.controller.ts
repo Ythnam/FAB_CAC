@@ -1,4 +1,4 @@
-import { Controller, Get, Query } from '@nestjs/common';
+import { Controller, Get, Param } from '@nestjs/common';
 import { ApiOkResponse } from '@nestjs/swagger';
 
 import { CardDto } from './dto/card.dto';
@@ -20,15 +20,16 @@ export class CardsController {
     return this.getAllCardsUseCase.execute();
   }
 
-  @Get(':set')
+  @Get('/set/:set')
   @ApiOkResponse({ type: Array<CardDto> })
-  findAllCardsFilteredBySet(@Query('set') set: string) {
+  findAllCardsFilteredBySet(@Param('set') set: string) {
+    console.log('set');
     return this.getAllCardsFilteredBySetUseCase.execute(set);
   }
 
-  @Get(':name')
+  @Get('/name/:name')
   @ApiOkResponse({ type: Array<CardDto> })
-  findAllCardsFilteredByName(@Query('name') name: string) {
+  findAllCardsFilteredByName(@Param('name') name: string) {
     return this.getAllCardsFilteredByNameUseCase.execute(name);
   }
 }
