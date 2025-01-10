@@ -14,7 +14,6 @@ export class GetAllCardsFilteredByNameUseCase implements BaseUseCase {
   ) {}
 
   async execute(name: string): Promise<ICard[]> {
-    console.log('GetAllCardsFilteredByNameUseCase');
     const cardsData = await this.cardsRepository.findAllCardsFilteredByName(name);
     return cardsData.map((card) => new Card().fromDao(card));
   }

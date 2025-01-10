@@ -2,7 +2,7 @@ import { Injectable } from '@nestjs/common';
 
 import { cards } from '@flesh-and-blood/cards';
 import { Card as FABCard, Release } from '@flesh-and-blood/types';
-import { first, isNil } from 'lodash';
+import { cloneDeep, first, isNil } from 'lodash';
 
 import { ICard } from '@/domain/entities/cards/card.interface';
 import { ICardsRepository } from '@/domain/repositories/cards-repository.interface';
@@ -29,7 +29,6 @@ export class CardsRepository implements ICardsRepository {
   }
 
   findAllCardsFilteredByName(name: string): Promise<Array<ICard>> {
-    console.log('findAllCardsFilteredByName');
     const filteredCards = this.filterCardsByName(name);
     const cardEntities = this.convertToCardEntity(filteredCards);
     const result = this.convertToPromise<ICard[]>(cardEntities);
@@ -58,14 +57,15 @@ export class CardsRepository implements ICardsRepository {
   }
 
   private filterCardPrintBySet(fabCard: FABCard, set: Release): FABCard {
-    fabCard.sets = [set];
-    fabCard.printings = fabCard.printings.filter((print) => print.set === set);
+    const mappedFabCard = cloneDeep(fabCard);
+    mappedFabCard.sets = [set];
+    mappedFabCard.printings = fabCard.printings.filter((print) => print.set === set);
     const defaultElement = first(fabCard.printings);
     if (!isNil(defaultElement)) {
-      fabCard.defaultImage = defaultElement?.image ?? fabCard.defaultImage;
-      fabCard.setIdentifiers = [defaultElement.identifier];
+      mappedFabCard.defaultImage = defaultElement?.image ?? fabCard.defaultImage;
+      mappedFabCard.setIdentifiers = [defaultElement.identifier];
     }
-    return fabCard;
+    return mappedFabCard;
   }
 
   private convertToCardEntity(card: FABCard[]): Array<ICard> {
