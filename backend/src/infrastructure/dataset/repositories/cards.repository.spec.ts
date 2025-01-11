@@ -36,6 +36,36 @@ describe('CardsRepository', () => {
     expect(cardsRepository).toBeDefined();
   });
 
+  describe('findAll', () => {
+    describe('filtered by name', () => {
+      it('Should return an empty array', async () => {
+        // Arrange
+        const name = 'eazvzevz';
+
+        // Act
+        const result = await cardsRepository.findAll(name);
+
+        // Assert
+        expect(isEmpty(result)).toBeTruthy();
+      });
+
+      it('Should return 1 card', async () => {
+        // Arrange
+        const name = 'Enigma';
+
+        // Act
+        const result = await cardsRepository.findAll(name);
+
+        // Assert
+        expect(result).toHaveLength(1);
+        result.forEach((card) => {
+          expect(card).toBeInstanceOf(CardEntity);
+          expect(card).toMatchObject(cardEntityEnigma);
+        });
+      });
+    });
+  });
+
   describe('findAllCardsFileredBySet', () => {
     it('Should return an empty array', async () => {
       // Arrange
@@ -65,34 +95,6 @@ describe('CardsRepository', () => {
       result.forEach((card) => {
         expect(card).toBeInstanceOf(CardEntity);
         expect(card).toMatchObject(expectedResult);
-      });
-    });
-  });
-
-  describe('findAllCardsFileredByName', () => {
-    it('Should return an empty array', async () => {
-      // Arrange
-      const name = 'eazvzevz';
-
-      // Act
-      const result = await cardsRepository.findAllCardsFilteredByName(name);
-
-      // Assert
-      expect(isEmpty(result)).toBeTruthy();
-    });
-
-    it('Should return 1 card', async () => {
-      // Arrange
-      const name = 'Enigma';
-
-      // Act
-      const result = await cardsRepository.findAllCardsFilteredByName(name);
-
-      // Assert
-      expect(result).toHaveLength(1);
-      result.forEach((card) => {
-        expect(card).toBeInstanceOf(CardEntity);
-        expect(card).toMatchObject(cardEntityEnigma);
       });
     });
   });

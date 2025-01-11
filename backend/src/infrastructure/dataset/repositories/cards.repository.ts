@@ -12,10 +12,9 @@ import { CardEntityMapper } from '../mapper/card-entity-mapper';
 export class CardsRepository implements ICardsRepository {
   constructor() {}
 
-  findAll(): Promise<ICard[]> {
-    // TODO: Remove the slice and optimise the call
-    const test = cards.slice(0, 100);
-    const cardEntities = this.convertToCardEntity(test);
+  findAll(name?: string): Promise<ICard[]> {
+    const filteredCards = this.filterCardsByName(name);
+    const cardEntities = this.convertToCardEntity(filteredCards);
     const result = this.convertToPromise<ICard[]>(cardEntities);
     return result;
   }
@@ -23,13 +22,6 @@ export class CardsRepository implements ICardsRepository {
   findAllCardsFilteredBySet(set: string): Promise<Array<ICard>> {
     const releaseSet = set as Release;
     const filteredCards = this.filterCardsDataBySet(releaseSet);
-    const cardEntities = this.convertToCardEntity(filteredCards);
-    const result = this.convertToPromise<ICard[]>(cardEntities);
-    return result;
-  }
-
-  findAllCardsFilteredByName(name: string): Promise<Array<ICard>> {
-    const filteredCards = this.filterCardsByName(name);
     const cardEntities = this.convertToCardEntity(filteredCards);
     const result = this.convertToPromise<ICard[]>(cardEntities);
     return result;

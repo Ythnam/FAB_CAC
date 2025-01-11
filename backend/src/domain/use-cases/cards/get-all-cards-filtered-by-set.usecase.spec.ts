@@ -12,7 +12,6 @@ describe('GetAllCardsFilteredBySetUseCase', () => {
     cardsRepository = {
       findAll: jest.fn(),
       findAllCardsFilteredBySet: jest.fn(),
-      findAllCardsFilteredByName: jest.fn(),
     };
 
     getAllCardsFilteredBySetUseCase = new GetAllCardsFilteredBySetUseCase(cardsRepository);

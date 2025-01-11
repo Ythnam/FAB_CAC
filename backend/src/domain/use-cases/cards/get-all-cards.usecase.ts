@@ -12,8 +12,8 @@ export class GetAllCardsUseCase implements BaseUseCase {
     private readonly cardsRepository: ICardsRepository,
   ) {}
 
-  async execute(): Promise<ICard[]> {
-    const cardsData = await this.cardsRepository.findAll();
+  async execute(name?: string): Promise<ICard[]> {
+    const cardsData = await this.cardsRepository.findAll(name);
     return cardsData.map((card) => new Card().fromDao(card));
   }
 }
