@@ -2,7 +2,7 @@ import { Injectable } from '@nestjs/common';
 
 import { cards } from '@flesh-and-blood/cards';
 import { Card as FABCard, Release } from '@flesh-and-blood/types';
-import { first, isNil } from 'lodash';
+import { cloneDeep, first, isNil } from 'lodash';
 
 import { ICard } from '@/domain/entities/cards/card.interface';
 import { ICardsRepository } from '@/domain/repositories/cards-repository.interface';
@@ -12,10 +12,9 @@ import { CardEntityMapper } from '../mapper/card-entity-mapper';
 export class CardsRepository implements ICardsRepository {
   constructor() {}
 
-  findAll(): Promise<ICard[]> {
-    // TODO: Remove the slice and optimise the call
-    const test = cards.slice(0, 100);
-    const cardEntities = this.convertToCardEntity(test);
+  findAll(name?: string): Promise<ICard[]> {
+    const filteredCards = this.filterCardsByName(name);
+    const cardEntities = this.convertToCardEntity(filteredCards);
     const result = this.convertToPromise<ICard[]>(cardEntities);
     return result;
   }
@@ -26,6 +25,12 @@ export class CardsRepository implements ICardsRepository {
     const cardEntities = this.convertToCardEntity(filteredCards);
     const result = this.convertToPromise<ICard[]>(cardEntities);
     return result;
+  }
+
+  private filterCardsByName(name: string): FABCard[] {
+    const searchMatchingNamesCaseInsensitiveRegexp = new RegExp(`${name}`, 'i');
+    const cardsMatched = cards.filter((card: FABCard) => searchMatchingNamesCaseInsensitiveRegexp.test(card.name));
+    return cardsMatched;
   }
 
   private filterCardsDataBySet(set: Release): FABCard[] {
@@ -44,14 +49,15 @@ export class CardsRepository implements ICardsRepository {
   }
 
   private filterCardPrintBySet(fabCard: FABCard, set: Release): FABCard {
-    fabCard.sets = [set];
-    fabCard.printings = fabCard.printings.filter((print) => print.set === set);
+    const mappedFabCard = cloneDeep(fabCard);
+    mappedFabCard.sets = [set];
+    mappedFabCard.printings = fabCard.printings.filter((print) => print.set === set);
     const defaultElement = first(fabCard.printings);
     if (!isNil(defaultElement)) {
-      fabCard.defaultImage = defaultElement?.image ?? fabCard.defaultImage;
-      fabCard.setIdentifiers = [defaultElement.identifier];
+      mappedFabCard.defaultImage = defaultElement?.image ?? fabCard.defaultImage;
+      mappedFabCard.setIdentifiers = [defaultElement.identifier];
     }
-    return fabCard;
+    return mappedFabCard;
   }
 
   private convertToCardEntity(card: FABCard[]): Array<ICard> {
