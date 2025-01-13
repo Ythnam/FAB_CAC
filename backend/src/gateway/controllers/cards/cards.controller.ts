@@ -5,6 +5,7 @@ import { CardDto } from './dto/card.dto';
 import { GetAllCardsUseCase } from '@/domain/use-cases/cards/get-all-cards.usecase';
 import { GetAllCardsFilteredBySetUseCase } from '@/domain/use-cases/cards/get-all-cards-filtered-by-set.usecase';
 import { GetAllCardsFilteringParametersQuery } from './query/get-all-cards-filtering-parameters.query';
+import { CardFilters } from '@/domain/use-cases/cards/card-filters';
 
 @Controller('cards')
 export class CardsController {
@@ -17,13 +18,13 @@ export class CardsController {
   @ApiQuery({ name: 'name', type: 'string', required: false })
   @ApiOkResponse({ type: Array<CardDto> })
   findAll(@Query() query: GetAllCardsFilteringParametersQuery) {
-    return this.getAllCardsUseCase.execute(query.name);
+    const cardFilters = new CardFilters(query.name);
+    return this.getAllCardsUseCase.execute(cardFilters);
   }
 
   @Get('/set/:set')
   @ApiOkResponse({ type: Array<CardDto> })
   findAllCardsFilteredBySet(@Param('set') set: string) {
-    console.log('set');
     return this.getAllCardsFilteredBySetUseCase.execute(set);
   }
 }

@@ -12,6 +12,8 @@ import {
   cardPrintingEntityEnigmaMarvel,
   cardPrintingEntityEnigmaNoFoil,
 } from '@/test-data/card-entity/card-entity-enigma';
+import { cardEntityPrism } from '@/test-data/card-entity/card-entity-prism-advent-of-thrones';
+import { CardFilters } from '@/domain/use-cases/cards/card-filters';
 
 jest.mock('@flesh-and-blood/cards');
 
@@ -38,23 +40,45 @@ describe('CardsRepository', () => {
 
   describe('findAll', () => {
     describe('filtered by name', () => {
-      it('Should return an empty array', async () => {
+      it('Should return an empty array if nothing is matching', async () => {
         // Arrange
-        const name = 'eazvzevz';
+        const cardFilters: CardFilters = {
+          name: 'eazvzevz',
+        };
 
         // Act
-        const result = await cardsRepository.findAll(name);
+        const result = await cardsRepository.findAll(cardFilters);
 
         // Assert
         expect(isEmpty(result)).toBeTruthy();
       });
 
-      it('Should return 1 card', async () => {
+      it('Should return the whole array if the parameter * is set', async () => {
         // Arrange
-        const name = 'Enigma';
+        const cardFilters: CardFilters = {
+          name: '*',
+        };
 
         // Act
-        const result = await cardsRepository.findAll(name);
+        const result = await cardsRepository.findAll(cardFilters);
+
+        // Assert
+        const expectedResult = [cardEntityEnigma, cardEntityPrism];
+        expect(result).toHaveLength(2);
+        result.forEach((card, index) => {
+          expect(card).toBeInstanceOf(CardEntity);
+          expect(card).toMatchObject(expectedResult[index]);
+        });
+      });
+
+      it('Should return 1 card', async () => {
+        // Arrange
+        const cardFilters: CardFilters = {
+          name: 'Enigma',
+        };
+
+        // Act
+        const result = await cardsRepository.findAll(cardFilters);
 
         // Assert
         expect(result).toHaveLength(1);

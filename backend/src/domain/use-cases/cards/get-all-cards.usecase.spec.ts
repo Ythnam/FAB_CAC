@@ -3,6 +3,7 @@ import { cardEntityEnigma } from '@/test-data/card-entity/card-entity-enigma';
 import { ICard } from '@/domain/entities/cards/card.interface';
 import { ICardsRepository } from '@/domain/repositories/cards-repository.interface';
 import { Card } from '@/domain/entities/cards/card';
+import { CardFilters } from './card-filters';
 
 describe('getAllCards', () => {
   let getAllCards: GetAllCardsUseCase;
@@ -25,11 +26,13 @@ describe('getAllCards', () => {
     it('should return an array of cards instances', async () => {
       // Arrange
       const cardsData: ICard[] = [cardEntityEnigma];
-      const name = 'Enigma';
+      const cardFilters: CardFilters = {
+        name: 'Enigma',
+      };
       jest.spyOn(cardsRepository, 'findAll').mockResolvedValue(cardsData);
 
       // Act
-      const result = await getAllCards.execute(name);
+      const result = await getAllCards.execute(cardFilters);
 
       // Assert
       expect(result).toHaveLength(cardsData.length);
@@ -38,20 +41,23 @@ describe('getAllCards', () => {
         expect(card).toMatchObject(cardsData[index]);
       });
       expect(cardsRepository.findAll).toHaveBeenCalledTimes(1);
+      expect(cardsRepository.findAll).toHaveBeenCalledWith(cardFilters);
     });
 
     it('should return an empty array if no cards are found', async () => {
       // Arrange
       jest.spyOn(cardsRepository, 'findAll').mockResolvedValue([]);
-      const name = 'aaefgvzvz';
+      const cardFilters: CardFilters = {
+        name: 'aaefgvzvz',
+      };
 
       // Act
-      const result = await getAllCards.execute(name);
+      const result = await getAllCards.execute(cardFilters);
 
       // Assert
       expect(result).toEqual([]);
       expect(cardsRepository.findAll).toHaveBeenCalledTimes(1);
-      expect(cardsRepository.findAll).toHaveBeenCalledWith(name);
+      expect(cardsRepository.findAll).toHaveBeenCalledWith(cardFilters);
     });
   });
 });

@@ -6,14 +6,15 @@ import { cloneDeep, first, isNil } from 'lodash';
 
 import { ICard } from '@/domain/entities/cards/card.interface';
 import { ICardsRepository } from '@/domain/repositories/cards-repository.interface';
+import { CardFilters } from '@/domain/use-cases/cards/card-filters';
 import { CardEntityMapper } from '../mapper/card-entity-mapper';
 
 @Injectable()
 export class CardsRepository implements ICardsRepository {
   constructor() {}
 
-  findAll(name?: string): Promise<ICard[]> {
-    const filteredCards = this.filterCardsByName(name);
+  findAll(filters: CardFilters): Promise<ICard[]> {
+    const filteredCards = this.filterCards(filters);
     const cardEntities = this.convertToCardEntity(filteredCards);
     const result = this.convertToPromise<ICard[]>(cardEntities);
     return result;
@@ -27,11 +28,35 @@ export class CardsRepository implements ICardsRepository {
     return result;
   }
 
-  private filterCardsByName(name: string): FABCard[] {
-    const searchMatchingNamesCaseInsensitiveRegexp = new RegExp(`${name}`, 'i');
-    const cardsMatched = cards.filter((card: FABCard) => searchMatchingNamesCaseInsensitiveRegexp.test(card.name));
-    return cardsMatched;
+  //#region private functions
+
+  //#region findAll
+
+  private filterCards(filters: CardFilters): FABCard[] {
+    const searchMatchingNamesCaseInsensitiveRegexp = this.generateRegexp(filters.name);
+    const filteredCards = cards.filter((card: FABCard) => this.checkFilter(card.name, searchMatchingNamesCaseInsensitiveRegexp));
+    return filteredCards;
   }
+
+  private generateRegexp(name: string): RegExp {
+    if (name === '*') {
+      return new RegExp('');
+    }
+    return new RegExp(`${name}`, 'i');
+  }
+
+  private checkFilter(input: string, matchingRegExp: RegExp): boolean {
+    const check = this.shouldTakeAllElements(input) || matchingRegExp.test(input);
+    return check;
+  }
+
+  private shouldTakeAllElements(input: string): boolean {
+    return input === '*';
+  }
+
+  //#endregion
+
+  //#region findAllCardsFilteredBySet
 
   private filterCardsDataBySet(set: Release): FABCard[] {
     const filteredCards = this.filterCardsBySet(set);
@@ -60,6 +85,10 @@ export class CardsRepository implements ICardsRepository {
     return mappedFabCard;
   }
 
+  //#endregion
+
+  //#region generic functions
+
   private convertToCardEntity(card: FABCard[]): Array<ICard> {
     const cardsMapped = card.map((card: FABCard) => {
       return CardEntityMapper.toCardEntity(card);
@@ -73,4 +102,8 @@ export class CardsRepository implements ICardsRepository {
     });
     return result;
   }
+
+  //#endregion
+
+  //#endregion
 }
