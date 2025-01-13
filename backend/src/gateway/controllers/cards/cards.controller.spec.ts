@@ -44,8 +44,8 @@ describe('CardsController', () => {
   });
 
   describe('findAll', () => {
-    describe('filtered by name', () => {
-      it('Should return an aray of cards', async () => {
+    describe('filtered by query', () => {
+      it('Should return an array of cards', async () => {
         // Arrange
         const query: GetAllCardsFilteringParametersQuery = { name: 'Enigma' };
         const cards = [cardEntityEnigma];
