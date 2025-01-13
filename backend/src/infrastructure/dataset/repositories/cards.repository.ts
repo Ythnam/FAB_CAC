@@ -15,48 +15,36 @@ export class CardsRepository implements ICardsRepository {
 
   findAll(filters: CardFilters): Promise<ICard[]> {
     const filteredCards = this.filterCards(filters);
-    const cardEntities = this.convertToCardEntity(filteredCards);
-    const result = this.convertToPromise<ICard[]>(cardEntities);
-    return result;
+    const cardEntities = this.mapToCardEntities(filteredCards);
+    return cardEntities;
   }
 
   findAllCardsFilteredBySet(set: string): Promise<Array<ICard>> {
     const releaseSet = set as Release;
     const filteredCards = this.filterCardsDataBySet(releaseSet);
-    const cardEntities = this.convertToCardEntity(filteredCards);
-    const result = this.convertToPromise<ICard[]>(cardEntities);
-    return result;
+    const cardEntities = this.mapToCardEntities(filteredCards);
+    return cardEntities;
   }
 
-  //#region private functions
-
-  //#region findAll
-
   private filterCards(filters: CardFilters): FABCard[] {
-    const searchMatchingNamesCaseInsensitiveRegexp = this.generateRegexp(filters.name);
-    const filteredCards = cards.filter((card: FABCard) => this.checkFilter(card.name, searchMatchingNamesCaseInsensitiveRegexp));
+    const matchingRegExp = this.createRegExp(filters.name);
+    const filteredCards = cards.filter((card: FABCard) => this.isMatchingFilter(card.name, matchingRegExp));
     return filteredCards;
   }
 
-  private generateRegexp(name: string): RegExp {
-    if (name === '*') {
-      return new RegExp('');
-    }
-    return new RegExp(`${name}`, 'i');
+  /**
+   * Create a case insensitive regular expression
+   * @param input the input parameter
+   * @returns the regular expression
+   */
+  private createRegExp(input: string): RegExp {
+    return input === '*' ? /.*/ : new RegExp(input, 'i');
   }
 
-  private checkFilter(input: string, matchingRegExp: RegExp): boolean {
-    const check = this.shouldTakeAllElements(input) || matchingRegExp.test(input);
+  private isMatchingFilter(input: string, regExp: RegExp): boolean {
+    const check = input === '*' || regExp.test(input);
     return check;
   }
-
-  private shouldTakeAllElements(input: string): boolean {
-    return input === '*';
-  }
-
-  //#endregion
-
-  //#region findAllCardsFilteredBySet
 
   private filterCardsDataBySet(set: Release): FABCard[] {
     const filteredCards = this.filterCardsBySet(set);
@@ -74,36 +62,20 @@ export class CardsRepository implements ICardsRepository {
   }
 
   private filterCardPrintBySet(fabCard: FABCard, set: Release): FABCard {
-    const mappedFabCard = cloneDeep(fabCard);
-    mappedFabCard.sets = [set];
-    mappedFabCard.printings = fabCard.printings.filter((print) => print.set === set);
+    const clonedCard = cloneDeep(fabCard);
+    clonedCard.sets = [set];
+    clonedCard.printings = fabCard.printings.filter((print) => print.set === set);
+
     const defaultElement = first(fabCard.printings);
     if (!isNil(defaultElement)) {
-      mappedFabCard.defaultImage = defaultElement?.image ?? fabCard.defaultImage;
-      mappedFabCard.setIdentifiers = [defaultElement.identifier];
+      clonedCard.defaultImage = defaultElement?.image ?? fabCard.defaultImage;
+      clonedCard.setIdentifiers = [defaultElement.identifier];
     }
-    return mappedFabCard;
+
+    return clonedCard;
   }
 
-  //#endregion
-
-  //#region generic functions
-
-  private convertToCardEntity(card: FABCard[]): Array<ICard> {
-    const cardsMapped = card.map((card: FABCard) => {
-      return CardEntityMapper.toCardEntity(card);
-    });
-    return cardsMapped;
+  private mapToCardEntities(fabCard: FABCard[]): Promise<ICard[]> {
+    return Promise.resolve(fabCard.map(CardEntityMapper.toCardEntity));
   }
-
-  private convertToPromise<T>(element: T): Promise<T> {
-    const result = new Promise<T>((resolve) => {
-      resolve(element);
-    });
-    return result;
-  }
-
-  //#endregion
-
-  //#endregion
 }
