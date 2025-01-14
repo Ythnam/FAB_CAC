@@ -105,9 +105,9 @@ export class CardsRepository implements ICardsRepository {
     clonedCard.setIdentifiers = [...new Set(clonedCard.printings.map((print) => print.identifier))];
     clonedCard.sets = [...new Set(clonedCard.printings.map((print) => print.set))];
 
-    const defaultElement = first(fabCard.printings);
+    const defaultElement = first(clonedCard.printings);
     if (!isNil(defaultElement)) {
-      clonedCard.defaultImage = defaultElement?.image ?? fabCard.defaultImage;
+      clonedCard.defaultImage = defaultElement?.image ?? clonedCard.defaultImage;
       clonedCard.artists = defaultElement.artists;
     }
 

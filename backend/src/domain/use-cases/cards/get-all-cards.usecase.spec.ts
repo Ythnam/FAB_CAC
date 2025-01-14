@@ -16,6 +16,7 @@ describe('getAllCardsUseCase', () => {
     cardsRepository = {
       findAll: jest.fn(),
       findAllCardsFilteredBySet: jest.fn(),
+      findAllCardsFilteredByArtist: jest.fn(),
     };
 
     getAllCardsUseCase = new GetAllCardsUseCase(cardsRepository);

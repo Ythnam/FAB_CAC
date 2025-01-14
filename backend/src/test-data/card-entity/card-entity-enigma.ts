@@ -1,6 +1,6 @@
+import { Class, Foiling, Rarity, Release, Treatment } from '@flesh-and-blood/types';
 import { CardPrintingEntity } from '@/infrastructure/dataset/entities/card-printing.entity';
 import { CardEntity } from '@/infrastructure/dataset/entities/card.entity';
-import { Class, Foiling, Rarity, Release, Treatment } from '@flesh-and-blood/types';
 
 const cardPrintingEntityEnigmaNoFoil: CardPrintingEntity = {
   artists: ['Asur Misoa'],
