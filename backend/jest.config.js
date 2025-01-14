@@ -15,7 +15,10 @@ module.exports = {
     collectCoverageFrom: [
       "**/*.(t|j)s"
     ],
-    coverageDirectory: "../coverage",
+    collectCoverageFrom: ["src/**/*.ts"],
+    coveragePathIgnorePatterns: ["test-data"],
+    coverageReporters: ['lcov'],
+    coverageDirectory: "coverage",
     testEnvironment: "node",
     moduleNameMapper: pathsToModuleNameMapper(compilerOptions.paths, {
         prefix: '<rootDir>/',
