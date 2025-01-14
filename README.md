@@ -18,11 +18,12 @@ Here is a repository of the FAB_CAC application.
 ## Libraries
 
  * [Angular](https://v17.angular.io/docs): Web framework
- * [AnuglarMaterial](https://v17.material.angular.io/): Web component framework
+ * [AngularMaterial](https://v17.material.angular.io/): Web component framework
  * [ESLint](https://eslint.org/): Linter
  * [Lodash](https://lodash.com/): Utility library
  * [Jest](https://jestjs.io/fr/docs/getting-started): Unit testing
  * [TypeOrm](https://typeorm.io/): Object-relational mapping
+ * [Fab-cards](https://www.npmjs.com/package/fab-cards): Card dataset
 
 ## Architecture
 
