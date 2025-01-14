@@ -6,12 +6,14 @@ import { GetAllCardsUseCase } from '@/domain/use-cases/cards/get-all-cards.useca
 import { GetAllCardsFilteredBySetUseCase } from '@/domain/use-cases/cards/get-all-cards-filtered-by-set.usecase';
 import { GetAllCardsFilteringParametersQuery } from './query/get-all-cards-filtering-parameters.query';
 import { CardFilters } from '@/domain/use-cases/cards/card-filters';
+import { GetAllCardsFilteredByArtistUseCase } from '@/domain/use-cases/cards/get-all-cards-filtered-by-artist.usecase';
 
 @Controller('cards')
 export class CardsController {
   constructor(
     private readonly getAllCardsUseCase: GetAllCardsUseCase,
     private readonly getAllCardsFilteredBySetUseCase: GetAllCardsFilteredBySetUseCase,
+    private readonly getAllCardsFilteredByArtistUseCase: GetAllCardsFilteredByArtistUseCase,
   ) {}
 
   @Get()
@@ -26,5 +28,11 @@ export class CardsController {
   @ApiOkResponse({ type: Array<CardDto> })
   findAllCardsFilteredBySet(@Param('set') set: string) {
     return this.getAllCardsFilteredBySetUseCase.execute(set);
+  }
+
+  @Get('/artist/:artist')
+  @ApiOkResponse({ type: Array<CardDto> })
+  findAllCardsFilteredByArtist(@Param('artist') artist: string) {
+    return this.getAllCardsFilteredByArtistUseCase.execute(artist);
   }
 }

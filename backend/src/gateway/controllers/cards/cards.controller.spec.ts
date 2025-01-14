@@ -9,11 +9,13 @@ import { cardEntityEnigma } from '@/test-data/card-entity/card-entity-enigma';
 import { cardDtoEnigma } from '@/test-data/card-dto/card-dto-enigma';
 import { cardDtoPrism } from '@/test-data/card-dto/card-dto-prism-advent-of-thrones';
 import { GetAllCardsFilteringParametersQuery } from './query/get-all-cards-filtering-parameters.query';
+import { GetAllCardsFilteredByArtistUseCase } from '@/domain/use-cases/cards/get-all-cards-filtered-by-artist.usecase';
 
 describe('CardsController', () => {
   let cardsController: CardsController;
   let getAllCardsUseCase: GetAllCardsUseCase;
   let getAllCardsFilteredBySetUseCase: GetAllCardsFilteredBySetUseCase;
+  let getAllCardsFilteredByArtistUseCase: GetAllCardsFilteredByArtistUseCase;
 
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
@@ -31,12 +33,19 @@ describe('CardsController', () => {
             execute: jest.fn(),
           },
         },
+        {
+          provide: GetAllCardsFilteredByArtistUseCase,
+          useValue: {
+            execute: jest.fn(),
+          },
+        },
       ],
     }).compile();
 
     cardsController = module.get<CardsController>(CardsController);
     getAllCardsUseCase = module.get<GetAllCardsUseCase>(GetAllCardsUseCase);
     getAllCardsFilteredBySetUseCase = module.get<GetAllCardsFilteredBySetUseCase>(GetAllCardsFilteredBySetUseCase);
+    getAllCardsFilteredByArtistUseCase = module.get<GetAllCardsFilteredByArtistUseCase>(GetAllCardsFilteredByArtistUseCase);
   });
 
   it('should be defined', () => {
@@ -72,6 +81,22 @@ describe('CardsController', () => {
 
       // Assert
       const expectedResult = [cardDtoEnigma, cardDtoPrism];
+      expect(result).toStrictEqual(expectedResult);
+    });
+  });
+
+  describe('findAllCardsFilteredByArtist', () => {
+    it('Should return an aray of cards', async () => {
+      // Arrange
+      const cards = [cardEntityEnigma];
+      const artist = 'asur';
+      jest.spyOn(getAllCardsFilteredByArtistUseCase, 'execute').mockResolvedValue(cards);
+
+      // Act
+      const result = await cardsController.findAllCardsFilteredByArtist(artist);
+
+      // Assert
+      const expectedResult = [cardDtoEnigma];
       expect(result).toStrictEqual(expectedResult);
     });
   });

@@ -26,6 +26,12 @@ export class CardsRepository implements ICardsRepository {
     return cardEntities;
   }
 
+  findAllCardsFilteredByArtist(artist: string): Promise<Array<ICard>> {
+    const filteredCards = this.filterCardsDataByArtist(artist);
+    const cardEntities = this.mapToCardEntities(filteredCards);
+    return cardEntities;
+  }
+
   private filterCards(filters: CardFilters): FABCard[] {
     const matchingRegExp = this.createRegExp(filters.name);
     const filteredCards = cards.filter((card: FABCard) => this.isMatchingFilter(card.name, matchingRegExp));
@@ -70,6 +76,39 @@ export class CardsRepository implements ICardsRepository {
     if (!isNil(defaultElement)) {
       clonedCard.defaultImage = defaultElement?.image ?? fabCard.defaultImage;
       clonedCard.setIdentifiers = [defaultElement.identifier];
+    }
+
+    return clonedCard;
+  }
+
+  private filterCardsDataByArtist(artist: string): FABCard[] {
+    const matchingRegExp = this.createRegExp(artist);
+    const filteredCards = this.filterCardsByArtist(matchingRegExp);
+    const cardsDataFiltered = this.filterCardPrintsByArtist(filteredCards, matchingRegExp);
+    return cardsDataFiltered;
+  }
+
+  private filterCardsByArtist(artistRegExp: RegExp): FABCard[] {
+    const filteredCards = cards.filter((card: FABCard) => this.isMatchingFilter(card.artists.toString(), artistRegExp));
+    return filteredCards;
+  }
+
+  private filterCardPrintsByArtist(fabCards: FABCard[], artistRegExp: RegExp): FABCard[] {
+    const mappedFabCards = fabCards.map((fabCard: FABCard) => this.filterCardPrintByArtist(fabCard, artistRegExp));
+    return mappedFabCards;
+  }
+
+  private filterCardPrintByArtist(fabCard: FABCard, artistRegExp: RegExp): FABCard {
+    const clonedCard = cloneDeep(fabCard);
+    clonedCard.printings = fabCard.printings.filter((print) => this.isMatchingFilter(print.artists.toString(), artistRegExp));
+
+    clonedCard.setIdentifiers = [...new Set(clonedCard.printings.map((print) => print.identifier))];
+    clonedCard.sets = [...new Set(clonedCard.printings.map((print) => print.set))];
+
+    const defaultElement = first(clonedCard.printings);
+    if (!isNil(defaultElement)) {
+      clonedCard.defaultImage = defaultElement?.image ?? clonedCard.defaultImage;
+      clonedCard.artists = defaultElement.artists;
     }
 
     return clonedCard;
