@@ -1,0 +1,9 @@
+.app-wrapper {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+
+  app-main-header {
+    flex-shrink: 0;
+  }
+}
