@@ -1,12 +1,8 @@
 import { NgModule } from '@angular/core';
 
-import {MatCardModule} from '@angular/material/card';
-
-
+import { MatCardModule } from '@angular/material/card';
 
 @NgModule({
-  exports: [
-    MatCardModule,
-  ]
+  exports: [MatCardModule],
 })
-export class MaterialModule { }
+export class MaterialModule {}
