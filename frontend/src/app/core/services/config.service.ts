@@ -6,7 +6,7 @@ import { ConfigModel } from '../models/config.model';
   providedIn: 'root',
 })
 export class ConfigService {
-  private config: any; //ConfigModel;
+  private config: ConfigModel | undefined;
 
   constructor(private http: HttpClient) {}
 
@@ -17,7 +17,7 @@ export class ConfigService {
       .get(configPath)
       .toPromise()
       .then((config) => {
-        this.config = config;
+        this.config = config as ConfigModel;
       });
   }
 

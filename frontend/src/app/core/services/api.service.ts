@@ -12,7 +12,7 @@ export class ApiService {
     private configService: ConfigService,
   ) {}
 
-  get<T>(endpoint: string, queryParams?: { [key: string]: string | number }): Observable<T> {
+  get<T>(endpoint: string, queryParams?: Record<string, string | number>): Observable<T> {
     const url = `${this.configService.apiBaseUrl}/${endpoint}`;
 
     let params = new HttpParams();
@@ -30,12 +30,12 @@ export class ApiService {
     return this.http.get<T>(url);
   }
 
-  post<T>(endpoint: string, body: any): Observable<T> {
+  post<T>(endpoint: string, body: unknown): Observable<T> {
     const url = `${this.configService.apiBaseUrl}/${endpoint}`;
     return this.http.post<T>(url, body);
   }
 
-  put<T>(endpoint: string, id: string, body: any): Observable<T> {
+  put<T>(endpoint: string, id: string, body: unknown): Observable<T> {
     const url = `${this.configService.apiBaseUrl}/${endpoint}/${id}`;
     return this.http.put<T>(url, body);
   }
