@@ -2,7 +2,6 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { ConfigModel } from '../models/config.model';
 
-
 @Injectable({
   providedIn: 'root',
 })
@@ -14,9 +13,12 @@ export class ConfigService {
   // Charge le fichier JSON correspondant à l'environnement
   loadConfig(env: string): Promise<void> {
     const configPath = `./environments/app-config.${env}.json`;
-    return this.http.get(configPath).toPromise().then((config) => {
-      this.config = config;
-    });
+    return this.http
+      .get(configPath)
+      .toPromise()
+      .then((config) => {
+        this.config = config;
+      });
   }
 
   // Accès aux valeurs du fichier JSON

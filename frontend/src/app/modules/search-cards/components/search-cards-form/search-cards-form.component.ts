@@ -6,14 +6,14 @@ import { CardsStore } from '../../store/cards.store';
 @Component({
   selector: 'app-search-cards-form',
   templateUrl: './search-cards-form.component.html',
-  styleUrl: './search-cards-form.component.scss'
+  styleUrl: './search-cards-form.component.scss',
 })
 export class SearchCardsFormComponent {
   searchControl: FormControl = new FormControl('');
-  
+
   constructor(private readonly cardsStore: CardsStore) {}
 
-  onSearch() : void {
+  onSearch(): void {
     const searchTerm = this.searchControl.value;
     this.cardsStore.fetchCardsByName(searchTerm);
   }

@@ -23,6 +23,6 @@ export const appConfig: ApplicationConfig = {
       useFactory: initializeApp,
       deps: [ConfigService],
       multi: true,
-    }
+    },
   ],
 };

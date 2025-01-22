@@ -1,3 +1,3 @@
 export interface ConfigModel {
-    apiBaseUrl: string;
+  apiBaseUrl: string;
 }

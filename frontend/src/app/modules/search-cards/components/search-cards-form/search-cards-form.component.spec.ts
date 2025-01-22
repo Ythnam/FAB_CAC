@@ -8,10 +8,9 @@ describe('SearchCardsFormComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [SearchCardsFormComponent]
-    })
-    .compileComponents();
-    
+      imports: [SearchCardsFormComponent],
+    }).compileComponents();
+
     fixture = TestBed.createComponent(SearchCardsFormComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
