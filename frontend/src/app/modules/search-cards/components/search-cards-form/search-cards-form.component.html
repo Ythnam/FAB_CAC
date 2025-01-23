@@ -1,0 +1,10 @@
+<mat-card>
+  <mat-form-field appearance="outline" subscriptSizing="dynamic">
+    <mat-label>Search card</mat-label>
+    <input matInput placeholder="Placeholder" [formControl]="searchControl" />
+    <mat-icon matPrefix>search</mat-icon>
+  </mat-form-field>
+  <button mat-mini-fab color="primary" (click)="onSearch()">
+    <mat-icon>search</mat-icon>
+  </button>
+</mat-card>
