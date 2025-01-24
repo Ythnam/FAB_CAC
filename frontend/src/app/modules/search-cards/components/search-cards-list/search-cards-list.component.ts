@@ -4,8 +4,8 @@ import { CardsStore } from '../../store/cards.store';
 @Component({
   selector: 'app-search-cards-list',
   templateUrl: './search-cards-list.component.html',
-  styleUrl: './search-cards-list.component.scss'
+  styleUrl: './search-cards-list.component.scss',
 })
 export class SearchCardsListComponent {
-  constructor(private readonly cardsStore: CardsStore) {}
+  constructor(readonly cardsStore: CardsStore) {}
 }

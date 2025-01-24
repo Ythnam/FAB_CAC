@@ -44,7 +44,7 @@ $dark-theme: mat.define-dark-theme(
   --palette-warn: #{mat.get-color-from-palette($dark-warn, 500)};
   --palette-warn-light: #{mat.get-color-from-palette($dark-warn, 200)};
   --palette-warn-dark: #{mat.get-color-from-palette($dark-warn, 700)};
-  --palette-warn-contrast: #{mat.get-color-from-palette($dark-warn, 50)};  
+  --palette-warn-contrast: #{mat.get-color-from-palette($dark-warn, 50)};
 
   --palette-main-background: #212121;
   --palette-second-background: #282828;

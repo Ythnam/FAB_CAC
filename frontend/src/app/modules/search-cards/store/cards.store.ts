@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Injectable, signal } from '@angular/core';
 
 import { CardsService } from '../services/cards.service';
 
@@ -6,14 +6,14 @@ import { CardsService } from '../services/cards.service';
   providedIn: 'any',
 })
 export class CardsStore {
-  cards: any[] = [];
+  cards = signal([]);
 
   constructor(private readonly cardService: CardsService) {}
 
   fetchCardsByName(name: string): void {
     this.cardService.getAllCardsByName(name).subscribe({
       next: (cards) => {
-        this.cards = cards;
+        this.cards.set(cards);
       },
       error: (err) => {
         console.error('Une erreur est survenue lors de la récupération des cartes:', err);
