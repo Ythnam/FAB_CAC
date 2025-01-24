@@ -30,6 +30,27 @@ $dark-theme: mat.define-dark-theme(
 // Apply the dark theme by default
 @include mat.all-component-themes($dark-theme);
 
+:root {
+  --palette-primary: #{mat.get-color-from-palette($dark-primary, 500)};
+  --palette-primary-light: #{mat.get-color-from-palette($dark-primary, 200)};
+  --palette-primary-dark: #{mat.get-color-from-palette($dark-primary, 700)};
+  --palette-primary-contrast: #{mat.get-color-from-palette($dark-primary, 50)};
+
+  --palette-accent: #{mat.get-color-from-palette($dark-accent, 500)};
+  --palette-accent-light: #{mat.get-color-from-palette($dark-accent, 200)};
+  --palette-accent-dark: #{mat.get-color-from-palette($dark-accent, 700)};
+  --palette-accent-contrast: #{mat.get-color-from-palette($dark-accent, 50)};
+
+  --palette-warn: #{mat.get-color-from-palette($dark-warn, 500)};
+  --palette-warn-light: #{mat.get-color-from-palette($dark-warn, 200)};
+  --palette-warn-dark: #{mat.get-color-from-palette($dark-warn, 700)};
+  --palette-warn-contrast: #{mat.get-color-from-palette($dark-warn, 50)};  
+
+  --palette-main-background: #212121;
+  --palette-second-background: #282828;
+  --palette-card-background: #424242;
+}
+
 body {
   color: mat.get-color-from-palette($dark-primary, 50);
 }
