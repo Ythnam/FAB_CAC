@@ -1,8 +1,8 @@
 <mat-toolbar>
   <mat-toolbar-row>
-    <a mat-raised-button routerLink="/" routerLinkActive="active">Home</a>
-    <a mat-raised-button routerLink="/search" routerLinkActive="active">Search</a>
-    <a mat-raised-button routerLink="/collection" routerLinkActive="active">Collection</a>
-    <a mat-raised-button routerLink="/profile" routerLinkActive="active">Profile</a>
+    <a mat-raised-button routerLink="/home" routerLinkActive="mat-primary" [routerLinkActiveOptions]="{ exact: false }">Home</a>
+    <a mat-raised-button routerLink="/search" routerLinkActive="mat-primary" [routerLinkActiveOptions]="{ exact: false }">Search</a>
+    <a mat-raised-button routerLink="/collection" routerLinkActive="mat-primary" [routerLinkActiveOptions]="{ exact: false }">Collection</a>
+    <a mat-raised-button routerLink="/profile" routerLinkActive="mat-primary" [routerLinkActiveOptions]="{ exact: false }">Profile</a>
   </mat-toolbar-row>
 </mat-toolbar>
