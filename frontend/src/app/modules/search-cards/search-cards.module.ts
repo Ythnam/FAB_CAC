@@ -11,7 +11,13 @@ import { SearchCardsListComponent } from './components/search-cards-list/search-
 import { DisplayCardComponent } from './components/display-card/display-card.component';
 
 @NgModule({
-  declarations: [SearchCardsMainComponent, SearchCardsHeaderComponent, SearchCardsFormComponent, SearchCardsListComponent, DisplayCardComponent],
+  declarations: [
+    SearchCardsMainComponent,
+    SearchCardsHeaderComponent,
+    SearchCardsFormComponent,
+    SearchCardsListComponent,
+    DisplayCardComponent,
+  ],
   imports: [CommonModule, RouterModule, SearchCardsRoutingModule, SharedModule],
   exports: [SearchCardsMainComponent],
 })
