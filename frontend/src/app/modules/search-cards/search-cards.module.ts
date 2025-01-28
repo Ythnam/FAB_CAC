@@ -8,9 +8,10 @@ import { SearchCardsMainComponent } from './components/search-cards-main/search-
 import { SearchCardsHeaderComponent } from './components/search-cards-header/search-cards-header.component';
 import { SearchCardsFormComponent } from './components/search-cards-form/search-cards-form.component';
 import { SearchCardsListComponent } from './components/search-cards-list/search-cards-list.component';
+import { DisplayCardComponent } from './components/display-card/display-card.component';
 
 @NgModule({
-  declarations: [SearchCardsMainComponent, SearchCardsHeaderComponent, SearchCardsFormComponent, SearchCardsListComponent],
+  declarations: [SearchCardsMainComponent, SearchCardsHeaderComponent, SearchCardsFormComponent, SearchCardsListComponent, DisplayCardComponent],
   imports: [CommonModule, RouterModule, SearchCardsRoutingModule, SharedModule],
   exports: [SearchCardsMainComponent],
 })
