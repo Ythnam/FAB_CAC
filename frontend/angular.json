@@ -31,7 +31,6 @@
               "src/environments"
             ],
             "styles": [
-              "@angular/material/prebuilt-themes/indigo-pink.css",
               "src/styles.scss",
               "src/styles/dark_theme.scss"
             ],

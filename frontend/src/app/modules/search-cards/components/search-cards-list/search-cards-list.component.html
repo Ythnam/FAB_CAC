@@ -1,0 +1,7 @@
+<div class="content-wrapper card-list__container">
+  <div class="card-list__grid">
+    @for (card of cardsStore.cards(); track card) {
+      <app-display-card [key]="card.defaultImage"></app-display-card>
+    }
+  </div>
+</div>
