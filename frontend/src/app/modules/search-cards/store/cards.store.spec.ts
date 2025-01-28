@@ -45,7 +45,7 @@ describe('CardsStore', () => {
           store.fetchCardsByName(null);
 
           // Assert
-          expect(store.cards).toMatchObject(mockCards);
+          expect(store.cards()).toMatchObject(mockCards);
         });
       });
     });
