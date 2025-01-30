@@ -1,3 +1,13 @@
 mat-toolbar-row {
   gap: 5px;
+  align-items: center;
+
+  a {
+    height: 32px;
+
+    img {
+      height: 32px;
+      aspect-ratio: 819 / 419;
+    }
+  }
 }
