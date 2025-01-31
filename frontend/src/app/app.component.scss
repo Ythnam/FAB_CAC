@@ -7,4 +7,8 @@
     display: flex;
     height: var(--header-height);
   }
+
+  .display-page__wrapper {
+    height: calc(100% - var(--header-height));
+  }
 }
