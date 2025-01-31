@@ -17,3 +17,24 @@ body {
   border-radius: 8px;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
+
+
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+/* Scrollbar background */
+::-webkit-scrollbar-track {
+  border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--palette-primary-dark);
+  border-radius: 10px;
+  border: 2px solid var(--palette-second-background);
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--palette-primary);
+}
