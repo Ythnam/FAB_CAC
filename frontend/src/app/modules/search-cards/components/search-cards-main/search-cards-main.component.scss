@@ -12,4 +12,13 @@
   > * {
     padding: 10px;
   }
+
+  app-search-cards-header {
+    flex: 0 0 auto; 
+  }
+
+  app-search-cards-list {
+    flex: 1;
+    overflow-y: auto;
+  }
 }
