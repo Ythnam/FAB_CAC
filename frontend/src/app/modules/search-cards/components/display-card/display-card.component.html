@@ -1,1 +1,7 @@
-<img [src]="imageUrl" alt="Description de l'image" />
+<div class="carousel">
+  <img [src]="imageUrl" alt="Card image" class="carousel-img" />
+  @if (hasMultiplePrinting) {
+    <button (click)="previousImage()" class="carousel-btn left">&lt;</button>
+    <button (click)="nextImage()" class="carousel-btn right">&gt;</button>
+  }
+</div>
