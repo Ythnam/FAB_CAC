@@ -1,5 +1,5 @@
 :host {
-  height: calc(100% - var(--header-height));
+  height: 100%;
 }
 
 .search-cards__wrapper {
@@ -11,5 +11,14 @@
 
   > * {
     padding: 10px;
+  }
+
+  app-search-cards-header {
+    flex: 0 0 auto;
+  }
+
+  app-search-cards-list {
+    flex: 1;
+    overflow-y: auto;
   }
 }
