@@ -1,12 +1,13 @@
-import { Injectable, signal } from '@angular/core';
+import { Injectable, signal, WritableSignal } from '@angular/core';
 
 import { CardsService } from '../services/cards.service';
+import { CardEntity } from '../models/entities/card.entity';
 
 @Injectable({
   providedIn: 'any',
 })
 export class CardsStore {
-  cards = signal([]);
+  cards: WritableSignal<CardEntity[]> = signal([]);
 
   constructor(private readonly cardService: CardsService) {}
 

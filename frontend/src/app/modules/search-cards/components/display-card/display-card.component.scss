@@ -1,6 +1,44 @@
-img {
-  aspect-ratio: 63 / 88;
-  width: 100%;
-  object-fit: cover;
-  border-radius: 8px;
+.carousel {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  .carousel-img {
+    width: 100%;
+    max-width: 300px;
+    aspect-ratio: 63 / 88;
+    object-fit: cover;
+    border-radius: 8px;
+  }
+
+  .carousel-btn {
+    position: absolute;
+    background: rgba(0, 0, 0, 0.5);
+    color: white;
+    border: none;
+    cursor: pointer;
+    padding: 10px;
+    font-size: 20px;
+    top: 50%;
+    transform: translateY(-50%);
+    opacity: 0;
+    transition: opacity 0.3s ease-in-out;
+  }
+
+  .left {
+    left: 10px;
+  }
+
+  .right {
+    right: 10px;
+  }
+
+  .carousel-btn:hover {
+    background: rgba(0, 0, 0, 0.8);
+  }
+}
+
+.carousel:hover .carousel-btn {
+  opacity: 1;
 }

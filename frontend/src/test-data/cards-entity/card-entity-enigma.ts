@@ -1,7 +1,7 @@
-import { CardPrintingDto } from '../../app/modules/search-cards/models/dto/card-printing.dto';
-import { CardDto } from '../../app/modules/search-cards/models/dto/card.dto';
+import { CardPrintingEntity } from '../../app/modules/search-cards/models/entities/card-printing.entity';
+import { CardEntity } from '../../app/modules/search-cards/models/entities/card.entity';
 
-const cardPrintingDtoEnigmaNoFoil: CardPrintingDto = {
+const cardPrintingEntityEnigmaNoFoil: CardPrintingEntity = {
   artists: ['Asur Misoa'],
   identifier: 'MST026',
   image: 'MST026',
@@ -9,7 +9,7 @@ const cardPrintingDtoEnigmaNoFoil: CardPrintingDto = {
   set: 'Part The Mistveil',
 };
 
-const cardPrintingDtoEnigmaColdFoil: CardPrintingDto = {
+const cardPrintingEntityEnigmaColdFoil: CardPrintingEntity = {
   artists: ['Asur Misoa'],
   foiling: 'C',
   identifier: 'MST026',
@@ -18,7 +18,7 @@ const cardPrintingDtoEnigmaColdFoil: CardPrintingDto = {
   set: 'Part The Mistveil',
 };
 
-const cardPrintingDtoEnigmaMarvel: CardPrintingDto = {
+const cardPrintingEntityEnigmaMarvel: CardPrintingEntity = {
   artists: ['Asur Misoa'],
   foiling: 'C',
   identifier: 'MST026',
@@ -28,7 +28,7 @@ const cardPrintingDtoEnigmaMarvel: CardPrintingDto = {
   treatment: 'FA',
 };
 
-const cardPrintingDtoEnigmaRainbowFoil: CardPrintingDto = {
+const cardPrintingEntityEnigmaRainbowFoil: CardPrintingEntity = {
   artists: ['Asur Misoa'],
   foiling: 'R',
   identifier: 'ENG001',
@@ -37,10 +37,15 @@ const cardPrintingDtoEnigmaRainbowFoil: CardPrintingDto = {
   set: 'Enigma Blitz Deck',
 };
 
-const cardDtoEnigma: CardDto = {
+const cardEntityEnigma: CardEntity = {
   artists: ['Asur Misoa'],
   classes: ['Illusionist'],
-  printings: [cardPrintingDtoEnigmaNoFoil, cardPrintingDtoEnigmaColdFoil, cardPrintingDtoEnigmaMarvel, cardPrintingDtoEnigmaRainbowFoil],
+  printings: [
+    cardPrintingEntityEnigmaNoFoil,
+    cardPrintingEntityEnigmaColdFoil,
+    cardPrintingEntityEnigmaMarvel,
+    cardPrintingEntityEnigmaRainbowFoil,
+  ],
   setIdentifiers: ['ENG001', 'MST026'],
   sets: ['Enigma Blitz Deck', 'Part The Mistveil'],
   cardIdentifier: 'enigma',
@@ -51,9 +56,9 @@ const cardDtoEnigma: CardDto = {
 };
 
 export {
-  cardDtoEnigma,
-  cardPrintingDtoEnigmaNoFoil,
-  cardPrintingDtoEnigmaColdFoil,
-  cardPrintingDtoEnigmaMarvel,
-  cardPrintingDtoEnigmaRainbowFoil,
+  cardEntityEnigma,
+  cardPrintingEntityEnigmaNoFoil,
+  cardPrintingEntityEnigmaColdFoil,
+  cardPrintingEntityEnigmaMarvel,
+  cardPrintingEntityEnigmaRainbowFoil,
 };
