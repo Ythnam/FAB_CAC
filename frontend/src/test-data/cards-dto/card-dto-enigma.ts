@@ -1,5 +1,5 @@
-import { CardPrintingDto } from '../../app/modules/search-cards/dto/card-printing.dto';
-import { CardDto } from '../../app/modules/search-cards/dto/card.dto';
+import { CardPrintingDto } from '../../app/modules/search-cards/models/dto/card-printing.dto';
+import { CardDto } from '../../app/modules/search-cards/models/dto/card.dto';
 
 const cardPrintingDtoEnigmaNoFoil: CardPrintingDto = {
   artists: ['Asur Misoa'],

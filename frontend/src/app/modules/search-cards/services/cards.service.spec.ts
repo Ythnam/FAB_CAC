@@ -6,7 +6,9 @@ describe('CardsService', () => {
 
   beforeEach(() => {
     apiServiceMock = {
-      get: jest.fn(),
+      get: jest.fn().mockReturnValue({
+        pipe: jest.fn(),
+      }),
     };
     service = new CardsService(apiServiceMock);
   });

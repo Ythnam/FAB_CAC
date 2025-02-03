@@ -1,9 +1,11 @@
 import { Injectable } from '@angular/core';
 
-import { Observable } from 'rxjs';
+import { map, Observable } from 'rxjs';
 
 import { ApiService } from '../../../core/services/api.service';
-import { CardDto } from '../dto/card.dto';
+import { CardDto } from '../models/dto/card.dto';
+import { CardEntity } from '../models/entities/card.entity';
+import { CardMapper } from '../helpers/card.mapper';
 
 @Injectable({
   providedIn: 'any',
@@ -11,8 +13,8 @@ import { CardDto } from '../dto/card.dto';
 export class CardsService {
   constructor(private readonly apiService: ApiService) {}
 
-  getAllCardsByName(name: string): Observable<any[]> {
+  getAllCardsByName(name: string): Observable<CardEntity[]> {
     const params = { name };
-    return this.apiService.get<CardDto[]>('cards', params);
+    return this.apiService.get<CardDto[]>('cards', params).pipe(map((cardsDto: CardDto[]) => CardMapper.fromDtoArray(cardsDto)));
   }
 }
