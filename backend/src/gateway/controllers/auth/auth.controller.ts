@@ -1,14 +1,16 @@
 import { Body, Controller, Get, Post, Req, UseGuards } from '@nestjs/common';
+import { AuthGuard } from '@nestjs/passport';
+import { ApiOAuth2, ApiTags } from '@nestjs/swagger';
 
 import { AuthenticateUserUseCase } from '@/domain/use-cases/auth/authenticate-user.use-case';
 import { RegisterLocalUserUseCase } from '@/domain/use-cases/auth/register-local-user.use-case';
 import { LoginLocalUserUseCase } from '@/domain/use-cases/auth/login-local-user.use-case';
 import { RegisterDto } from './dtos/register.dto';
 import { LoginDto } from './dtos/login.dto';
-import { AuthGuard } from '@nestjs/passport';
 import { AuthProvider } from '@/domain/enums/auth-provider.enum';
 
 @Controller('auth')
+@ApiTags('auth')
 export class AuthController {
   constructor(
     private readonly authenticateSocialUserUseCase: AuthenticateUserUseCase,
@@ -46,6 +48,7 @@ export class AuthController {
     return this.authenticateSocialUserUseCase.execute(AuthProvider.FACEBOOK, req.user);
   }
 
+  @ApiOAuth2(['read'])
   @Get('me')
   @UseGuards(AuthGuard('jwt'))
   getProfile(@Req() req) {
