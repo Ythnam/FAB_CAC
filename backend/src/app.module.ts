@@ -15,7 +15,7 @@ import { ControllersModule } from './gateway/controllers/controllers.module';
       password: process.env.DB_PASSWORD,
       database: process.env.DB_NAME,
       entities: ['dist/**/*.entity{.ts,.js}'],
-      synchronize: true, // TODO: To be removed in PROD
+      synchronize: false,
     }),
   ],
 })
