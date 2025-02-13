@@ -6,7 +6,6 @@ import { ConfigModule, ConfigService } from '@nestjs/config';
 import { JwtStrategy } from './strategies/jwt.strategy';
 import { GoogleStrategy } from './strategies/google.strategy';
 import { FacebookStrategy } from './strategies/facebook.strategy';
-import { AuthConfig } from './service/auth-config.service';
 import { UsersRepository } from './repositories/user.repository';
 import { JwtTokenService } from './service/jwt-token.service';
 import { BcryptPasswordService } from './service/bcrypt-password.service';
@@ -23,7 +22,7 @@ import { BcryptPasswordService } from './service/bcrypt-password.service';
       inject: [ConfigService],
     }),
   ],
-  providers: [AuthConfig, JwtStrategy, GoogleStrategy, FacebookStrategy, UsersRepository, JwtTokenService, BcryptPasswordService],
+  providers: [JwtStrategy, GoogleStrategy, FacebookStrategy, UsersRepository, JwtTokenService, BcryptPasswordService],
   exports: [JwtTokenService, BcryptPasswordService, UsersRepository],
 })
 export class AuthInfrastructureModule {}
