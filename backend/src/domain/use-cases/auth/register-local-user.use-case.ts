@@ -9,6 +9,12 @@ import { BaseUseCase } from '../base-use-case.interface';
 import { ITokenService } from '@/domain/services/token.service.interface';
 import { IUser } from '@/domain/entities/auth/user.interface';
 
+type RegisterLocalUserUseCasePayload = {
+  email: string;
+  password: string;
+  userName: string;
+};
+
 export class RegisterLocalUserUseCase implements BaseUseCase {
   constructor(
     @Inject(USERS_REPOSITORY)
@@ -19,7 +25,7 @@ export class RegisterLocalUserUseCase implements BaseUseCase {
     private readonly tokenService: ITokenService,
   ) {}
 
-  async execute(userData: { email: string; password: string; name: string }): Promise<AuthTokens> {
+  async execute(userData: RegisterLocalUserUseCasePayload): Promise<AuthTokens> {
     const existingUser = await this.userRepository.findByEmail(userData.email);
     if (existingUser) {
       throw new Error('User already exists');
@@ -30,7 +36,7 @@ export class RegisterLocalUserUseCase implements BaseUseCase {
     const user = await this.userRepository.saveUser({
       email: userData.email,
       password: hashedPassword,
-      name: userData.name,
+      userName: userData.userName,
       provider: AuthProvider.LOCAL,
       createdAt: new Date(),
       updatedAt: new Date(),

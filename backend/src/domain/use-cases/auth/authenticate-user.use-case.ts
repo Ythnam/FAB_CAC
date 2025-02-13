@@ -25,7 +25,7 @@ export class AuthenticateUserUseCase implements BaseUseCase {
       if (!user) {
         user = await this.userRepository.saveUser({
           email: profile.email,
-          name: profile.name,
+          userName: profile.userName,
           provider,
           providerId: profile.id,
           createdAt: new Date(),

@@ -10,8 +10,8 @@ export class UserEntity implements IUser {
   @Column({ unique: true })
   email: string;
 
-  @Column()
-  name: string;
+  @Column({ unique: true })
+  userName: string;
 
   @Column({
     type: 'enum',
