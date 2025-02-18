@@ -20,6 +20,15 @@ $ npm run start:dev
 # production mode
 $ npm run start:prod
 ```
+## Run migrations
+
+```bash
+# Create a migration
+npm run migration:generate
+
+# Run a migration
+npm run migration:run
+```
 
 ## Run tests
 
